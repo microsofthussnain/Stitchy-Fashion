@@ -1,0 +1,323 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #f8f5ef;
+  --dark: #101214;
+  --gold: #c7a45d;
+  --soft: #e9e3d8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--dark);
+  font-family: Arial, sans-serif;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.premium-button {
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.premium-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+}
+
+.coat-float {
+  animation: coatFloat 5s ease-in-out infinite;
+}
+
+.stitch-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #f8f5ef;
+  color: #101214;
+}
+
+.loader-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image: radial-gradient(rgba(16, 18, 20, 0.16) 0.7px, transparent 0.7px);
+  background-size: 7px 7px;
+  mask-image: linear-gradient(to bottom, transparent, black 35%, transparent);
+}
+
+.loader-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(78vw, 430px);
+  height: min(78vw, 430px);
+}
+
+.loader-orbit {
+  position: absolute;
+  width: min(78vw, 430px);
+  height: min(78vw, 430px);
+  border: 1px solid rgba(199, 164, 93, 0.35);
+  border-radius: 50%;
+}
+
+.orbit-one {
+  transform: rotate(28deg) scaleY(0.42);
+  animation: loaderOrbit 4s ease-in-out infinite;
+}
+
+.orbit-two {
+  transform: rotate(-28deg) scaleY(0.42);
+  animation: loaderOrbit 4s 0.7s ease-in-out infinite reverse;
+}
+
+.loader-scissors {
+  position: relative;
+  z-index: 2;
+  color: #101214;
+  filter: drop-shadow(0 20px 20px rgba(16, 18, 20, 0.2));
+  transform-origin: 50% 50%;
+  animation: scissorsCut 1.25s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.loader-scissors::after {
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  width: 125px;
+  height: 2px;
+  content: "";
+  background: var(--gold);
+  box-shadow: 0 0 18px var(--gold);
+  transform: translate(-50%, -50%) scaleX(0);
+  animation: cuttingFlash 1.25s ease-in-out infinite;
+}
+
+.loader-thread {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  width: 42%;
+  height: 1px;
+  background: var(--gold);
+  box-shadow: 0 0 12px rgba(199, 164, 93, 0.8);
+}
+
+.thread-left {
+  left: -2%;
+  transform-origin: right center;
+  animation: threadLeft 1.25s ease-in-out infinite;
+}
+
+.thread-right {
+  right: -2%;
+  transform-origin: left center;
+  animation: threadRight 1.25s ease-in-out infinite;
+}
+
+.loader-spark {
+  position: absolute;
+  z-index: 3;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 16px var(--gold);
+  animation: sparkFly 1.25s ease-out infinite;
+}
+
+.spark-one { animation-delay: 0.12s; }
+.spark-two { animation-delay: 0.32s; }
+.spark-three { animation-delay: 0.5s; }
+
+.loader-label {
+  position: absolute;
+  bottom: 11%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.loader-mark {
+  color: var(--gold);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+}
+
+.loader-dots {
+  width: 18px;
+  overflow: hidden;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  animation: loaderDots 1.2s steps(4, end) infinite;
+}
+
+.loader-progress {
+  position: absolute;
+  bottom: 9vh;
+  width: min(210px, 48vw);
+  height: 2px;
+  overflow: hidden;
+  background: rgba(16, 18, 20, 0.14);
+}
+
+.loader-progress span {
+  display: block;
+  width: 45%;
+  height: 100%;
+  background: var(--gold);
+  box-shadow: 0 0 10px var(--gold);
+  animation: loaderProgress 1.5s ease-in-out infinite;
+}
+
+@keyframes scissorsCut {
+  0%, 100% { transform: rotate(-18deg) translate(-12px, 8px); }
+  50% { transform: rotate(18deg) translate(12px, -8px); }
+}
+
+@keyframes cuttingFlash {
+  0%, 35%, 100% { transform: translate(-50%, -50%) scaleX(0); opacity: 0; }
+  48%, 65% { transform: translate(-50%, -50%) scaleX(1); opacity: 1; }
+}
+
+@keyframes threadLeft {
+  0%, 100% { transform: rotate(8deg) scaleX(0.65); }
+  50% { transform: rotate(-8deg) scaleX(1); }
+}
+
+@keyframes threadRight {
+  0%, 100% { transform: rotate(-8deg) scaleX(0.65); }
+  50% { transform: rotate(8deg) scaleX(1); }
+}
+
+@keyframes sparkFly {
+  0%, 100% { opacity: 0; transform: translate(0, 0) scale(0.3); }
+  45% { opacity: 1; transform: translate(0, 0) scale(1); }
+  80% { opacity: 0; transform: translate(45px, -35px) scale(0.1); }
+}
+
+@keyframes loaderOrbit {
+  0%, 100% { opacity: 0.35; transform: rotate(28deg) scaleY(0.42) scale(0.94); }
+  50% { opacity: 0.9; transform: rotate(28deg) scaleY(0.42) scale(1.04); }
+}
+
+@keyframes loaderProgress {
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(330%); }
+}
+
+@keyframes loaderDots {
+  0% { width: 5px; }
+  50% { width: 11px; }
+  100% { width: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-scissors,
+  .loader-orbit,
+  .loader-thread,
+  .loader-spark,
+  .loader-dots,
+  .loader-progress span,
+  .loader-scissors::after {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes coatFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotateY(0deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotateY(8deg);
+  }
+}
+
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: shine 4s infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -120%;
+  }
+
+  45%,
+  100% {
+    left: 140%;
+  }
+}
+
+[dir="rtl"] {
+  direction: rtl;
+}
+
+[dir="rtl"] body {
+  font-family: "Noto Nastaliq Urdu", "Noto Sans Arabic", sans-serif;
+}
+
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .site-navigation ~ main,
+  .site-navigation ~ section,
+  .site-navigation ~ footer {
+    margin-left: 88px;
+  }
+}
